@@ -33,7 +33,8 @@ class PromptManager:
         system_message: str = "You are a helpful assistant.",
         history: Optional[List[Dict[str, str]]] = None,
         metadata: Optional[Dict[str, Any]] = None,
-        model: Optional[str] = None
+        model: Optional[str] = None,
+        cost_managment_loging: Optional[bool]=False
     ) -> str:
         messages = [{"role": "system", "content": system_message}]
         if history:
@@ -70,9 +71,9 @@ class PromptManager:
 
                 per_token_cost = model_cost_per_1k.get(resolved_model, 0.01)
                 cost = (total_tokens / 1000) * per_token_cost
-
-                print(f"💬 Tokens used: prompt={prompt_tokens}, completion={completion_tokens}, total={total_tokens}")
-                print(f"💰 Estimated cost: ${cost:.4f}")
+                if cost_managment_loging:
+                    print(f"💬 Tokens used: prompt={prompt_tokens}, completion={completion_tokens}, total={total_tokens}")
+                    print(f"💰 Estimated cost: ${cost:.4f}")
 
             if self.use_db:
                 self._store_prompt(

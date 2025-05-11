@@ -40,12 +40,12 @@ run:
 	$(VENV)/bin/uvicorn main:app --reload
 
 test:
-	PYTHONPATH=. $(PY) testing/test_prompt_cost.py
+	PYTHONPATH=. $(PY) testing/test_embed_search.py
 
 
 runbook:
-	@echo "📘 Running satirical Air Force rewrite of The Prince..."
-	PYTHONPATH=. venv/bin/python bookshaper.py
+	@echo "📘 Running satirical rewrite test..."
+	PYTHONPATH=. venv/bin/python tools/bookshaper.py
 
 clean:
 	@echo "🧹 Cleaning environment..."
@@ -53,4 +53,21 @@ clean:
 	find . -type d -name '__pycache__' -exec rm -rf {} +
 	find . -type f -name '*.py[co]' -delete
 
+clean-data:
+	@echo "Removing data directory..."
+	rm -rf ./data
+	@echo "data/ directory removed."
+
 reset: clean setup
+
+extract-test-text:
+	PYTHONPATH=. $(PY) tools/generate_test_dataset.py ../test_docs/test_search --output embedding_test_data.json
+
+inspect:
+	PYTHONPATH=. $(PY) tools/code_structure.py ./
+
+inspect-describe:
+	PYTHONPATH=. $(PY) tools/code_structure.py ./ --docstring
+
+inspect-llm:
+	PYTHONPATH=. $(PY) tools/code_structure.py ./ --describe

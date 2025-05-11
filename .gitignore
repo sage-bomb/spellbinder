@@ -1,0 +1,27 @@
+# OS garbage
+.DS_Store
+Thumbs.db
+
+# Python build/cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.env/
+env/
+.virtualenv/
+
+# Data files
+*.npy
+*.npz
+*.json
+
+# IDE/editor settings
+.vscode/
+.idea/
+
+# Git should never see itself
+.git/
