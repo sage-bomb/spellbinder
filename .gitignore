@@ -25,3 +25,4 @@ env/
 
 # Git should never see itself
 .git/
+.github_token
