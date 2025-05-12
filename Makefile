@@ -71,3 +71,6 @@ inspect-describe:
 
 inspect-llm:
 	PYTHONPATH=. $(PY) tools/code_structure.py ./ --describe
+run-app:
+	@echo "🚀 Starting new web search app..."
+	$(VENV)/bin/uvicorn app.main:app --reload
