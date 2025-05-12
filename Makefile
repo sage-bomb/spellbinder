@@ -5,35 +5,31 @@ PY := $(VENV)/bin/python
 
 .PHONY: setup run clean reset
 
-update:
-	@echo "⬆️  Updating Python environment..."
-	$(PY) -m pip install --upgrade pip
-	$(PY) -m pip install \
-		openai \
-		tqdm \
-		jinja2 \
-		beautifulsoup4 \
-		tinydb \
-		sentence-transformers \
-		torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu118
+rebuild-registry:
+    @echo "♻️  Rebuilding file registry..."
+    PYTHONPATH=. $(PY) tools/rebuild_file_registry.py
 
 setup:
 	@echo "⚙️  Setting up Python venv..."
 	rm -rf $(VENV)
 	$(PYTHON) -m venv $(VENV)
 	$(PIP) install --upgrade pip
-
-	@echo "📦 Installing libraries..."
+	$(MAKE) update
+	$(MAKE) rebuild-registry
+	
+update:
+	@echo "⬆️  Updating Python environment..."
+	$(PIP) install --upgrade pip
 	$(PIP) install \
-		fastapi uvicorn jinja2 tinydb openai \
-		sentence-transformers
+		openai \
+		tqdm \
+		jinja2 \
+		beautifulsoup4 \
+		tinydb \
+		sentence-transformers \
+		torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu118 \
+		fastapi uvicorn python-multipart
 
-	@echo "🧠 Installing PyTorch (with CUDA if available)..."
-	@if command -v nvidia-smi > /dev/null; then \
-		$(PIP) install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121; \
-	else \
-		$(PIP) install torch torchvision torchaudio; \
-	fi
 
 run:
 	@echo "🚀 Starting server..."

@@ -82,7 +82,7 @@ def evaluate_embedding_diversity(embeddings, similarity_threshold=0.95):
     mean_similarity = similarity_matrix.mean()
     return mean_similarity < similarity_threshold
 
-def embed_text_block(text: str, max_tokens: int = 512) -> list[dict]:
+def embed_text_block(text: str,file_eid: str, max_tokens: int = 512) -> list[dict]:
     """
     Splits text into improved semantic chunks and returns:
     [{"eid": <uuid>, "embedding": <np.ndarray>, "text": <original>}]
@@ -100,6 +100,7 @@ def embed_text_block(text: str, max_tokens: int = 512) -> list[dict]:
         
             result.append({
                 "eid": str(uuid.uuid4()),
+                "file_eid": file_eid, 
                 "embedding": np.array(vec, dtype=np.float32),
                 "text": segment
             })

@@ -11,6 +11,7 @@ from util.embedding import (
     delete_embedding
 )
 from util.embedding_store import EmbeddingStore
+from util.file_registry import register_file
 import json
 
 EMBEDDING_DIR = "data/embeddings"
@@ -41,11 +42,12 @@ def embed_new_documents(memory_only, store, directory_path):
         file_path = os.path.join(directory_path, filename)
         if not os.path.isfile(file_path):
             continue
-
+        register_file(file_path)
         with open(file_path, "r", encoding="utf-8") as f:
             text = f.read()
 
-        chunks = embed_text_block(text)
+        file_eid = register_file(file_path)
+        chunks = embed_text_block(text, file_eid=file_eid)
 
         for chunk in chunks:
             eid = chunk["eid"]
