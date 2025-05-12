@@ -1,0 +1,7 @@
+Add this inside your testing/test_embed_search.py inside embed_new_documents():
+
+from util.file_registry import register_file
+
+... inside the for loop for each filename:
+
+    register_file(file_path)
