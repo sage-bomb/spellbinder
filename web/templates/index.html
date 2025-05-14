@@ -1,46 +1,34 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Spellbinder V2</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spellbinder</title>
+    <link rel="stylesheet" href="static/css/style.base.css">
+    <link rel="stylesheet" href="static/css/style.feature.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-    
-    <script src="/static/js/core.js"></script>
-    <script src="/static/js/tags.js"></script>
-    <script src="/static/js/panels_search.js"></script>
-    <script src="/static/js/panels_entity.js"></script>
-    <script src="/static/js/panels_graph.js"></script>
-    <script src="/static/js/panels_text.js"></script>
-    <script src="/static/js/panels_outliner.js"></script>
-    
+
+<script src="static/js/main.js"></script>
 </head>
 <body>
-    <div id="tagModal" style="display:none; position:fixed; top:20%; left:30%; width:40%; background:#2d2d30; border:2px solid #555; border-radius:10px; padding:20px; z-index:999;">
-        <h3>Select Tag or Add New</h3>
-        <div id="existingTags"></div>
-        <input type="text" id="newTagInput" placeholder="New tag name">
-        <input type="color" id="tagColorPicker" value="#555555">
-        <button id="addNewTag">Add</button>
-        <button onclick="$('#tagModal').hide()">Close</button>
-    </div>    
-    <div id="app">
-        <div id="header">
-            <h1>Spellbinder</h1>
-        </div>
-        <div id="sidebar">
-            <button onclick="renderPanelSearch()">Search Tools</button><br>
-            <button onclick="renderPanelEntity()">Entity Editor (L)</button><br>
-            <button onclick="renderPanelText()">Text Reader/Editor (R)</button><br>
-            <button onclick="renderPanelGraph()">Entity Graph (L)</button><br>
-            <button onclick="renderPanelOutliner()">Story Outliner (L)</button>
-        </div>
-        <div id="main">
-            <div id="left_panel"></div>
-            <div id="right_panel"></div>
-        </div>
+ <div id="topbar">
+    <button class="panel-toggle" data-panel="search">Search</button>
+    <button class="panel-toggle" data-panel="outliner">Outliner</button>
+    <button class="panel-toggle" data-panel="textEditor">Text Editor</button>
+    <button class="panel-toggle" data-panel="entityeditor">Entity Editor</button>
+    <button class="panel-toggle" data-panel="objects">Objects/Entities</button>
+</div>
+<div id="workspace">
+    <div id="panel-container-left">
+        <div id="panel-search" class="panel hidden"></div>
+        <div id="panel-outliner" class="panel"></div>
     </div>
+    <div id="panel-container-right">
+        <div id="panel-texteditor" class="panel hidden"></div>
+        <div id="panel-entityeditor" class="panel"></div>
+        <div id="panel-objects" class="panel hidden"></div>
+    </div>
+</div>
 </body>
 </html>
