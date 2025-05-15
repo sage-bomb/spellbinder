@@ -12,7 +12,7 @@ install:
 	$(PIP) install -r requirements.txt
 
 run:
-	$(PYTHON) -m uvicorn app.main:app --reload
+	$(VENV)/bin/uvicorn web.app.main:app --reload
 
 clean:
 	rm -rf $(VENV_DIR)

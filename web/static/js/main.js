@@ -8,9 +8,10 @@ function loadScript(url, callback) {
 }
 
 const scripts = [
+    '/static/js/data/api.entities.js',    
     '/static/js/core.js',
     '/static/js/data/state.js',
-    '/static/js/data/api.entities.js',
+
     '/static/js/ui/panelBase.js',
     '/static/js/ui/sortable.js',
     '/static/js/ui/topbar.js',

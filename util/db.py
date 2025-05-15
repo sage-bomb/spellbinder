@@ -2,13 +2,23 @@ import os
 from tinydb import TinyDB, Query
 from typing import Callable, Any
 
+
+
 class TinyInterface:
-    def __init__(self, db_path="db.json", table_name="default", validator: Callable[[dict], bool] = None):
+    def __init__(self, db_path=None, table_name="default", validator: Callable[[dict], bool] = None):
+        # Always resolve db path relative to project root + data folder
+        base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../data"))
+        os.makedirs(base_dir, exist_ok=True)
+        if db_path is None:
+            db_path = os.path.join(base_dir, "db.json")
+
+        self._ensure_path_exists(db_path)
+        self.db = TinyDB(db_path)
+
         self._ensure_path_exists(db_path)
         self.db = TinyDB(db_path)
         self.table = self.db.table(table_name)
         self.validator = validator
-
     def _ensure_path_exists(self, db_path):
         os.makedirs(os.path.dirname(db_path), exist_ok=True)
         if not os.path.exists(db_path):

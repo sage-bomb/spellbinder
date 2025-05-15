@@ -59,12 +59,20 @@ class EditorPanel extends Panel {
             entity.type = typeSelect.val();
             entity.name = nameInput.val();
             entity.description = descInput.val();
-            api.updateEntity(entity, () => location.reload());
+            if(entity.edi=="new"){api.createEntity(entity);}
+            api.updateEntity(entity, () => {
+                objectsPanelRender();           // refresh list
+                editorPanelRender(entity);      // re-render editor panel (stay open, no reload)
+            });
+
         });
 
         deleteBtn.click(() => {
             if (confirm('Delete this entity?')) {
-                api.deleteEntity(entity.edi, () => location.reload());
+            api.deleteEntity(entity.edi, () => {
+                objectsPanelRender();           // refresh list
+                $('#panel-editor').addClass('hidden');  // hide editor cleanly
+            });
             }
         });
     }

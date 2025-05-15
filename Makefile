@@ -1,13 +1,15 @@
+# === Top-level Makefile for Spellbinder ===
+
 PYTHON := $(shell which python3.10)
 VENV := venv
 PIP := $(VENV)/bin/pip
 PY := $(VENV)/bin/python
 
-.PHONY: setup run clean reset
+.PHONY: setup update run run-app test runbook clean clean-data reset extract-test-text inspect inspect-describe inspect-llm
 
 rebuild-registry:
-    @echo "♻️  Rebuilding file registry..."
-    PYTHONPATH=. $(PY) tools/rebuild_file_registry.py
+	@echo "♻️  Rebuilding file registry..."
+	PYTHONPATH=. $(PY) tools/rebuild_file_registry.py
 
 setup:
 	@echo "⚙️  Setting up Python venv..."
@@ -16,7 +18,7 @@ setup:
 	$(PIP) install --upgrade pip
 	$(MAKE) update
 	$(MAKE) rebuild-registry
-	
+
 update:
 	@echo "⬆️  Updating Python environment..."
 	$(PIP) install --upgrade pip
@@ -30,18 +32,18 @@ update:
 		torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu118 \
 		fastapi uvicorn python-multipart
 
-
 run:
 	@echo "🚀 Starting server..."
-	$(VENV)/bin/uvicorn main:app --reload
+	$(VENV)/bin/uvicorn web.app.main:app --reload
+
+run-app: run
 
 test:
 	PYTHONPATH=. $(PY) testing/test_embed_search.py
 
-
 runbook:
 	@echo "📘 Running satirical rewrite test..."
-	PYTHONPATH=. venv/bin/python tools/bookshaper.py
+	PYTHONPATH=. $(PY) tools/bookshaper.py
 
 clean:
 	@echo "🧹 Cleaning environment..."
@@ -67,6 +69,3 @@ inspect-describe:
 
 inspect-llm:
 	PYTHONPATH=. $(PY) tools/code_structure.py ./ --describe
-run-app:
-	@echo "🚀 Starting new web search app..."
-	$(VENV)/bin/uvicorn app.main:app --reload

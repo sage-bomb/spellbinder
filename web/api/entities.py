@@ -1,33 +1,58 @@
-# web/api/entities.py
+# === web/api/entities.py ===
 
 from fastapi import APIRouter, HTTPException
-from core import datalayer
+from pydantic import BaseModel
+from typing import List, Optional
+from util.db import TinyInterface
+from tinydb import Query
+import uuid
 
-router = APIRouter(prefix="/api/entities")
+# Set up router
+router = APIRouter(prefix="/entities", tags=["entities"])
 
-@router.get("/")
-def get_all_entities():
-    return datalayer.get_entities()
+# Connect to the centralized TinyDB table
+db = TinyInterface(table_name="entities")
 
-@router.get("/{eid}")
-def get_entity(eid: str):
-    entity = datalayer.get_entity(eid)
-    if not entity:
+# Pydantic model for validation
+class Entity(BaseModel):
+    edi: Optional[str] = None
+    type: str
+    name: str
+    description: Optional[str] = None
+
+# === CRUD routes ===
+
+@router.get("/", response_model=List[Entity])
+def list_entities():
+    return db.all()   # 👈 FIX THIS
+
+
+@router.get("/{edi}", response_model=Entity)
+def get_entity(edi: str):
+    result = db.get(edi=edi)
+    if not result:
         raise HTTPException(status_code=404, detail="Entity not found")
-    return entity
+    return result[0]
 
-@router.post("/")
-def add_entity(entity: dict):
-    return datalayer.add_entity(entity)
+@router.post("/", response_model=Entity)
+def create_entity(entity: Entity):
+    entity_data = entity.dict(exclude_unset=True)
+    entity_data["edi"] = str(uuid.uuid4())  # Server-generated eid
+    db.add(entity_data)
+    return entity_data
 
-@router.put("/{eid}")
-def update_entity(eid: str, entity: dict):
-    updated = datalayer.update_entity(eid, entity)
-    if not updated:
+@router.put("/{edi}", response_model=Entity)
+def update_entity(edi: str, entity: Entity):
+    q = Query()
+    entity_data = entity.dict(exclude_unset=True)
+    entity_data["edi"] = edi  # Enforce consistency
+    if db.table.update(entity_data, q.edi == edi) == 0:
         raise HTTPException(status_code=404, detail="Entity not found")
-    return updated
+    return entity_data
 
-@router.delete("/{eid}")
-def delete_entity(eid: str):
-    datalayer.delete_entity(eid)
-    return {"success": True}
+@router.delete("/{edi}")
+def delete_entity(edi: str):
+    q = Query()
+    if db.table.remove(q.edi == edi) == 0:
+        raise HTTPException(status_code=404, detail="Entity not found")
+    return {"detail": "Entity deleted"}
