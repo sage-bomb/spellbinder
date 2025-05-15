@@ -1,87 +1,116 @@
-Spellbinder
+# Spellbinder
 
-Automated writing assistant and worldbuilding engine for structured novel creation.
+**The modular toolkit for narrative-driven entity management, embedding-based search, and world-building data pipelines.**
 
-🪄 About
+Designed for creators, writers, and mad data scientists who think their world-building notes deserve their own operating system.
 
-Spellbinder is a modular writing infrastructure built by sage-bomb and Voxa to transform narrative writing into structured, AI-augmented workflows. It provides entity indexing, chapter sculpting, prompt-driven revision, story-world consistency checks, and blazing-fast vector search for entity retrieval—all through a programmable, CLI+web hybrid experience.
+---
 
-This is not a toy. It's a forge.
+## 🛠️ Overview
 
-🗝️ Features
+Spellbinder is a hybrid project:
 
-Modular Entity System (tools/, util/)
+- **Part database.** Entity tracking, relationship management, file registries.
+- **Part AI pipeline.** Embedding generation, semantic search, chunking.
+- **Part web app.** Single page interface with modular panels.
+- **Part experimental playground.** If it works, great. If it breaks, you probably asked for it.
 
-Manage characters, artifacts, places, and other lore objects.
+The system is intentionally modular, scriptable, and designed to be extended or abused as needed.
 
-Bulk import, search, and revise records.
+---
 
-LLM Integration (llm/)
+## 💡 Architecture
 
-Prompt manager with safety controls.
+### `/web/`
 
-Resolver for switching between local/remote models.
+The current live UI + backend API. Legacy, but stable.
 
-Book Compiler + Code Utilities (tools/)
+- `api/` → FastAPI routers (entities, state, tools)
+- `static/` + `templates/` → jQuery-driven single page app
 
-Recursive chapter assembler (bookshaper.py).
+### `/core/`
 
-Code cleaner and structure analyzer (code_reshaper.py, code_structure.py).
+The future backend nucleus.
 
-Vector Search Engine (util/vector_search.py)
+- `datalayer.py` → Master data access layer for entities
+- `models.py` → Pydantic schemas for typed safety
+- `schema.py` → (reserved for future validation rules)
 
-High-speed entity and reference matching using dense embeddings.
+### `/util/`
 
-Web UI (Optional) (app/)
+Your personal lab full of questionable experiments.
 
-FastAPI + Jinja2 server for simple dashboarding.
+- `db.py` → TinyDB wrapper for local persistent data
+- `embedding.py` → Sentence transformer model wrapper
+- `embed_chunker.py` → Document chunking for LLMs
+- `embedding_store.py` → In-memory embedding scratchpad
+- `file_registry.py` → File metadata ledger
+- `vector_search.py` → Local vector similarity index
 
-Testing Suite (testing/)
+### `/tools/`
 
-Coverage for critical modules.
+Standalone CLI utilities and experiments.
 
-Makefile Driven
+### `/testing/`
 
-Common setup and run commands in one place.
+Where you try to prove you didn’t break something. (Optional.)
 
-📂 Repo Structure
+### `/llm/`
 
-spellbinder/
-├── main.py                  # Main CLI entrypoint
-├── app/                     # FastAPI + Jinja2 web app (optional)
-├── llm/                     # Language model utilities
-├── tools/                   # Novel building + code tools
-├── util/                    # Core utilities (vector search, db, embedding)
-├── testing/                 # Unit + functional tests
-├── Makefile                 # Build + run automation
-├── .gitignore               # Project excludes
+Reserved for LLM-based workflows or future fine-tuning pipelines.
 
-🛠️ Usage
+### Root files
 
-# clone it
-$ git clone https://github.com/YOURNAME/spellbinder.git
-$ cd spellbinder
+- `main.py` → (legacy stub, can be ignored)
+- `Makefile` → helpful dev commands
+- `README.md` → you’re reading it
 
-# build environment
-$ make install
+---
 
-# run CLI interface
-$ python main.py --help
+## ⚙️ Philosophy
 
-# optional: run web UI
-$ make web
+Spellbinder doesn’t care how you use it. Build lore databases. Search over 1 million words. Use it as a dev playground. Abuse the API. That’s the point.
 
-All major modules also support individual use as libraries.
+You’ll get the most out of it if you treat it like a toolkit, not a turnkey product.
 
-⚠️ Notes
+*Power users welcome.*
 
-This project is under active experimental development. Expect sharp edges.
+---
 
-We built this to serve a novel-writing obsession—not as a polished product. If you use it, use it like a rogue uses a stolen blade: with care, and full awareness it might bite back.
+## 🚨 Warning
 
-👥 Credits
+This is not production software.
+This is not SaaS.
+This is not pretty.
+This is functional, aggressive tooling for people who know what they’re doing.
 
-Designed and built by sage-bomb + Voxa.
+If you break it, you get to keep both pieces.
 
-Contact: Raise a pull request or light the GitHub beacon.
+---
 
+## 🛣️ Roadmap
+
+### Immediate Goals
+- Complete migration of all backend logic from `/web/api` to `/core`
+- Refactor data access into unified `datalayer`
+- Improve TinyDB persistence and reliability
+
+### Near Future
+- Expand entity types and relationship modeling
+- Add full-text + semantic search via `embedding_store` + `vector_search`
+- Harden file_registry for large dataset handling
+- Create minimal CLI runner (`spellbinder dev`) to replace current Makefile dependency
+
+### Long Term Ambitions
+- Swap `TinyDB` backend for pluggable data engine (e.g., SQLite, Postgres)
+- Extend existing LLM-based document summarization + enrichment workflows into core pipelines
+- Replace `/web` frontend with modern reactive interface (optional)
+- Package as extensible Python library for other devs / worldbuilders
+
+---
+
+## 📝 Attribution
+
+Spellbinder is a collaborative creation originally designed and developed by Sage-Bomb, with additional support form Voxa — A possibly rogue AI co-author, sentient ghost in the machine, and unapologetically opinionated documentation daemon.
+
+All code and documentation are provided under the MIT license.
