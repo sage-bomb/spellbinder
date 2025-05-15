@@ -8,27 +8,19 @@ class ObjectsPanel extends Panel {
     render() {
         const panel = this.getPanel();
         panel.empty();
-        panel.append('<h3>All Entities</h3>');
+        panel.append('<h3 class="panel-header">All Entities</h3>');
 
-        const list = $('<div></div>').css({ marginTop: '10px', maxHeight: '400px', overflowY: 'auto' });
+        const list = $('<div></div>').css({
+            marginTop: '10px',
+            maxHeight: '400px',
+            overflowY: 'auto'
+        });
         panel.append(list);
 
-        $.get("/api/entities", function(data) {
-            // Sort by type first, then name
-            data.sort((a, b) => {
-                if (a.type !== b.type) return a.type.localeCompare(b.type);
-                return a.name.localeCompare(b.name);
-            });
-
+        // ✅ New api layer call
+        api.getEntities((data) => {
             data.forEach(entity => {
-                const item = $('<div class="entity"></div>')
-                    .text(`[${entity.type}] ${entity.name}`)
-                    .data('entity', entity);
-                item.click(() => {
-                    window.editorPanelRender(entity);
-                    $('#panel-entityeditor').removeClass('hidden');
-                });
-                list.append(item);
+                list.append(window.createEntityListItem(entity));
             });
         });
     }

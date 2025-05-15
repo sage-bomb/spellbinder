@@ -5,30 +5,31 @@
     <title>Spellbinder</title>
     <link rel="stylesheet" href="static/css/style.base.css">
     <link rel="stylesheet" href="static/css/style.feature.css">
+    <link rel="stylesheet" href="static/css/sortable.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
-
-<script src="static/js/main.js"></script>
+    <script src="static/js/main.js"></script>
 </head>
 <body>
- <div id="topbar">
-    <button class="panel-toggle" data-panel="search">Search</button>
-    <button class="panel-toggle" data-panel="outliner">Outliner</button>
-    <button class="panel-toggle" data-panel="textEditor">Text Editor</button>
-    <button class="panel-toggle" data-panel="entityeditor">Entity Editor</button>
-    <button class="panel-toggle" data-panel="objects">Objects/Entities</button>
-</div>
-<div id="workspace">
-    <div id="panel-container-left">
-        <div id="panel-search" class="panel hidden"></div>
-        <div id="panel-outliner" class="panel"></div>
+    <div id="topbar">
+        <button class="panel-toggle" data-panel="search">Search</button>
+        <button class="panel-toggle" data-panel="outliner">Outliner</button>
+        <button class="panel-toggle" data-panel="texteditor">Text Editor</button>
+        <button class="panel-toggle" data-panel="editor">Entity Editor</button>
+        <button class="panel-toggle" data-panel="objects">Objects/Entities</button>
     </div>
-    <div id="panel-container-right">
-        <div id="panel-texteditor" class="panel hidden"></div>
-        <div id="panel-entityeditor" class="panel"></div>
-        <div id="panel-objects" class="panel hidden"></div>
+
+    <div id="workspace">
+        <div id="panel-container-left" class="panel-column">
+            <div id="panel-search" class="panel inactive"></div>
+            <div id="panel-outliner" class="panel inactive"></div>
+        </div>
+        <div id="panel-container-right" class="panel-column">
+            <div id="panel-texteditor" class="panel inactive"></div>
+            <div id="panel-editor" class="panel inactive"></div>
+            <div id="panel-objects" class="panel inactive"></div>
+        </div>
     </div>
-</div>
 </body>
 </html>

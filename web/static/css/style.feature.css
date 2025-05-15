@@ -1,14 +1,30 @@
-/* Spellbinder v7: Feature-specific panel styles */
+/* === Spellbinder v7: Feature Styles === */
 
-/* Outliner + editor headings */
+/* --- Generic panel shells --- */
+#panel-search, #panel-texteditor, #panel-objects {
+    background-color: #2b2b2b;
+    border: 1px solid #3a3a3a;
+    border-radius: 12px;
+    padding: 15px;
+    overflow-y: auto;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+
+/* Generic panel headings */
 #panel-outliner h3,
 #panel-outliner h4,
-#panel-entityeditor h3 {
+#panel-search h3,
+#panel-texteditor h3,
+#panel-objects h3 {
+    margin-top: 0;
+    color: #f0f0f0;
     border-bottom: 1px solid #444;
     padding-bottom: 5px;
 }
 
-/* Outliner entity blocks */
+/* --- Outliner specific styles --- */
+
+/* Entity blocks */
 #panel-outliner .entity {
     background-color: #3a3a3a;
     margin: 5px 0;
@@ -36,7 +52,7 @@
     color: #cc88ff;
 }
 
-/* Outliner flipper icon */
+/* Flipper icon */
 #panel-outliner .flipper {
     cursor: pointer;
     font-size: 14px;
@@ -48,7 +64,7 @@
     color: #fff;
 }
 
-/* Outliner delete button */
+/* Delete button */
 #panel-outliner .delete-btn {
     float: right;
     color: #ff4444;
@@ -61,7 +77,7 @@
     color: #ff8888;
 }
 
-/* Outliner entity description */
+/* Entity description */
 #panel-outliner .entity-desc {
     background-color: #222;
     border: 1px solid #333;
@@ -72,7 +88,7 @@
     color: #ccc;
 }
 
-/* Outliner small add scene button */
+/* Small add scene button */
 #panel-outliner button.small-btn {
     background-color: #333;
     color: #ccc;
@@ -86,53 +102,4 @@
 
 #panel-outliner button.small-btn:hover {
     background-color: #555;
-}
-
-/* Editor form */
-#panel-entityeditor label {
-    display: block;
-    margin-top: 10px;
-    color: #aaa;
-}
-
-/* Optional blank panel shells */
-#panel-search, #panel-texteditor, #panel-objects {
-    background-color: #2b2b2b;
-    border: 1px solid #3a3a3a;
-    border-radius: 12px;
-    padding: 15px;
-    overflow-y: auto;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
-}/* Panels default shell look */
-#panel-search, #panel-texteditor, #panel-objects {
-    background-color: #2b2b2b;
-    border: 1px solid #3a3a3a;
-    border-radius: 12px;
-    padding: 15px;
-    overflow-y: auto;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
-}
-
-/* Search panel styles */
-#panel-search h3 {
-    margin-top: 0;
-    color: #f0f0f0;
-    border-bottom: 1px solid #444;
-    padding-bottom: 5px;
-}
-
-/* Text editor panel styles */
-#panel-texteditor h3 {
-    margin-top: 0;
-    color: #f0f0f0;
-    border-bottom: 1px solid #444;
-    padding-bottom: 5px;
-}
-
-/* Objects panel styles */
-#panel-objects h3 {
-    margin-top: 0;
-    color: #f0f0f0;
-    border-bottom: 1px solid #444;
-    padding-bottom: 5px;
 }

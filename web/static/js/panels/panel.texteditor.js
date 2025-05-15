@@ -1,4 +1,4 @@
-// === panel.texteditor.js (demo case) ===
+// === panel.texteditor.js ===
 class TextEditorPanel extends Panel {
     constructor() {
         super('#panel-texteditor');
@@ -6,12 +6,21 @@ class TextEditorPanel extends Panel {
     }
 
     render(entity) {
+        entity = entity || {
+            edi: "new",
+            type: "Unknown",
+            name: "",
+            description: "",
+            children: [],
+            parent: null
+        };
+
         super.render(entity);  // Call base render first
 
         const panel = this.getPanel();
         const saveBtn = $('<button>Save</button>');
         const deleteBtn = $('<button>Delete</button>');
-        panel.append(saveBtn).append(deleteBtn);
+        panel.append(saveBtn, deleteBtn);
 
         const nameInput = panel.find('input[type="text"]');
         const descInput = panel.find('textarea');
@@ -19,27 +28,17 @@ class TextEditorPanel extends Panel {
         saveBtn.click(() => {
             entity.name = nameInput.val();
             entity.description = descInput.val();
-            $.ajax({
-                url: '/api/entity/' + entity.edi,
-                type: 'PATCH',
-                contentType: 'application/json',
-                data: JSON.stringify(entity),
-                success: function() { location.reload(); }
-            });
+            api.updateEntity(entity, () => location.reload());
         });
 
         deleteBtn.click(() => {
             if (confirm('Delete this entity?')) {
-                $.ajax({
-                    url: '/api/entity/' + entity.edi,
-                    type: 'DELETE',
-                    success: function() { location.reload(); }
-                });
+                api.deleteEntity(entity.edi, () => location.reload());
             }
         });
     }
 }
 
 // Export to global to stay compatible
-window.textEditorPanel = () => new TextEditorPanel();
-window.textEditorPanelRender = (entity) => new TextEditorPanel().render(entity);
+window.texteditorPanel = () => new TextEditorPanel();
+window.texteditorPanelRender = (entity) => new TextEditorPanel().render(entity);

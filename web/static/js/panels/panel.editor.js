@@ -1,8 +1,8 @@
 // === panel.editor.js ===
 class EditorPanel extends Panel {
     constructor() {
-        super('#panel-entityeditor');
-        console.log("Editor panel loaded");
+        super('#panel-editor');
+        console.log("Entity Editor panel loaded");
     }
 
     render(entity) {
@@ -15,35 +15,56 @@ class EditorPanel extends Panel {
             parent: null
         };
 
-        super.render(entity); // base renders name + description
+        super.render(entity);  // Base render for name + description
 
         const panel = this.getPanel();
+
+        // Add entity type dropdown + new type option
+        const typeLabel = $('<label>Type:</label>');
+        const typeSelect = $('<select></select>');
+        const typeOptions = ['Unknown', 'Act', 'Scene', 'Character', 'Item', 'Place'];
+
+        typeOptions.forEach(type => {
+            const option = $('<option></option>').val(type).text(type);
+            if (entity.type === type) option.attr('selected', true);
+            typeSelect.append(option);
+        });
+
+        const customOption = $('<option></option>').val('custom').text('Custom...');
+        typeSelect.append(customOption);
+
+        panel.find('.panel-body').prepend(typeSelect).prepend(typeLabel);
+
+        typeSelect.change(function() {
+            if ($(this).val() === 'custom') {
+                const newType = prompt("Enter custom entity type:");
+                if (newType) {
+                    const newOpt = $('<option></option>').val(newType).text(newType);
+                    $(this).append(newOpt).val(newType);
+                } else {
+                    $(this).val('Unknown');
+                }
+            }
+        });
+
+        // Save + Delete buttons
         const saveBtn = $('<button>Save</button>');
         const deleteBtn = $('<button>Delete</button>');
-        panel.append(saveBtn).append(deleteBtn);
+        panel.append(saveBtn, deleteBtn);
 
         const nameInput = panel.find('input[type="text"]');
         const descInput = panel.find('textarea');
 
         saveBtn.click(() => {
+            entity.type = typeSelect.val();
             entity.name = nameInput.val();
             entity.description = descInput.val();
-            $.ajax({
-                url: '/api/entity/' + entity.edi,
-                type: 'PATCH',
-                contentType: 'application/json',
-                data: JSON.stringify(entity),
-                success: function() { location.reload(); }
-            });
+            api.updateEntity(entity, () => location.reload());
         });
 
         deleteBtn.click(() => {
             if (confirm('Delete this entity?')) {
-                $.ajax({
-                    url: '/api/entity/' + entity.edi,
-                    type: 'DELETE',
-                    success: function() { location.reload(); }
-                });
+                api.deleteEntity(entity.edi, () => location.reload());
             }
         });
     }

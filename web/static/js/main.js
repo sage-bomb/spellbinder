@@ -14,6 +14,7 @@ const scripts = [
     '/static/js/ui/panelBase.js',
     '/static/js/ui/sortable.js',
     '/static/js/ui/topbar.js',
+    '/static/js/ui/elements.js',
     '/static/js/panels/panel.outliner.js',
     '/static/js/panels/panel.editor.js',
     '/static/js/panels/panel.texteditor.js',
@@ -31,8 +32,8 @@ const scripts = [
             initApp?.();
             setupTopbar?.();
             outlinerPanel?.();
-            editorPanel?.();
-            textEditorPanel?.();
+//            editorPanel?.();
+            texteditorPanel?.();
         } catch (e) {
             console.error("Spellbinder startup error:", e);
         }

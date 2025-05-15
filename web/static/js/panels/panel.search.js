@@ -8,40 +8,31 @@ class SearchPanel extends Panel {
     render() {
         const panel = this.getPanel();
         panel.empty();
-        panel.append('<h3>Search Panel</h3>');
+        panel.append('<h3 class="panel-header">Search Panel</h3>');
 
-        // Search input + button
         const input = $('<input type="text" placeholder="Enter search term">').css({ width: '80%' });
         const button = $('<button>Search</button>');
         const results = $('<div id="search-results"></div>').css({ marginTop: '15px' });
 
-        panel.append(input);
-        panel.append(button);
-        panel.append(results);
+        panel.append(input, button, results);
 
         button.click(() => {
             const query = input.val().toLowerCase();
             results.empty();
             if (!query) return;
 
-            // Fake search by scanning entities
-            $.get("/api/entities", function(data) {
+            // ✅ Use api layer instead of raw $.get
+            api.getEntities((data) => {
                 const matches = data.filter(e =>
                     e.name.toLowerCase().includes(query) ||
                     (e.description && e.description.toLowerCase().includes(query))
                 );
+
                 if (matches.length === 0) {
                     results.append('<p>No results found.</p>');
                 } else {
                     matches.forEach(entity => {
-                        const item = $('<div class="entity"></div>')
-                            .text(entity.name)
-                            .data('entity', entity);
-                        item.click(() => {
-                            window.editorPanelRender(entity);
-                            $('#panel-entityeditor').removeClass('hidden');
-                        });
-                        results.append(item);
+                        results.append(window.createEntityListItem(entity));
                     });
                 }
             });
