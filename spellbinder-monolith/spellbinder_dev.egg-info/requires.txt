@@ -1,3 +1,0 @@
-spellbinder-util
-spellbinder-llm
-spellbinder-tools

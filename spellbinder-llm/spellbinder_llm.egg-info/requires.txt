@@ -1,4 +1,0 @@
-openai
-jinja2
-uuid
-spellbinder-util

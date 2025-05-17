@@ -1,9 +1,0 @@
-Metadata-Version: 2.1
-Name: spellbinder-tools
-Version: 0.1.0
-Summary: Tooling scripts for Spellbinder development
-Author-email: Your Name <you@example.com>
-Requires-Dist: openai
-Requires-Dist: bs4
-Requires-Dist: llm
-Requires-Dist: spellbinder-util
