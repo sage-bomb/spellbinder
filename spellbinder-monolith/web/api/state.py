@@ -1,7 +1,7 @@
 # web/api/state.py
 
 from fastapi import APIRouter
-from util import db
+from spellbinder_util import db
 
 router = APIRouter(prefix="/api/state")
 

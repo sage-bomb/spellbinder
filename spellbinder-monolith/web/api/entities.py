@@ -3,7 +3,7 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional
-from util.db import TinyInterface
+from spellbinder_util.db import TinyInterface
 from tinydb import Query
 import uuid
 
