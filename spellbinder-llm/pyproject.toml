@@ -1,0 +1,16 @@
+[project] 
+name = "spellbinder-llm"
+version = "0.1.0"
+description = "Prompt management and LLM interface for Spellbinder"
+authors = [{ name="Taylor Sage", email="you@example.com" }]
+dependencies = [
+    "openai",
+    "jinja2",
+    "uuid",
+    "spellbinder-util"
+]
+requires-python = ">=3.8.10"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"

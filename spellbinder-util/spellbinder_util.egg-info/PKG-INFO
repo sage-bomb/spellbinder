@@ -1,0 +1,8 @@
+Metadata-Version: 2.1
+Name: spellbinder-util
+Version: 0.1.0
+Summary: Utilities for Spellbinder backend
+Author-email: Your Name <you@example.com>
+Requires-Dist: numpy
+Requires-Dist: tinydb
+Requires-Dist: sentence-transformers

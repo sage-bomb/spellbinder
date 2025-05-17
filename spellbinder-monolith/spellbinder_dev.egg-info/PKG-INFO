@@ -1,0 +1,8 @@
+Metadata-Version: 2.1
+Name: spellbinder-dev
+Version: 0.0.1
+Summary: Integration project for Spellbinder development
+Author-email: Taylor Sage <you@example.com>
+Requires-Dist: spellbinder-util
+Requires-Dist: spellbinder-llm
+Requires-Dist: spellbinder-tools

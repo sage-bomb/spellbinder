@@ -1,0 +1,14 @@
+[project]
+name = "spellbinder-tools"
+version = "0.1.0"
+description = "Tooling scripts for Spellbinder development"
+authors = [{ name="Your Name", email="you@example.com" }]
+dependencies = ["openai", "bs4", "spellbinder-llm", "spellbinder-util"]
+
+[project.scripts]
+bookshaper = "spellbinder_tools.bookshaper:main"
+compile = "spellbinder_tools.compile:main"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"

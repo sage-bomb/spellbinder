@@ -1,0 +1,17 @@
+[project]
+name = "spellbinder-dev"
+version = "0.0.1"
+description = "Integration project for Spellbinder development"
+authors = [{ name = "Taylor Sage", email = "you@example.com" }]
+dependencies = [
+  "spellbinder-util",
+  "spellbinder-llm",
+  "spellbinder-tools"
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["core", "web", "testing"]

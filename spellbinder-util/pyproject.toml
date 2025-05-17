@@ -1,0 +1,10 @@
+[project]
+name = "spellbinder-util"
+version = "0.1.0"
+description = "Utilities for Spellbinder backend"
+authors = [{ name="Your Name", email="you@example.com" }]
+dependencies = ["numpy", "tinydb", "sentence-transformers"]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"

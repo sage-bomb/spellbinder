@@ -1,0 +1,105 @@
+/* === Spellbinder v7: Feature Styles === */
+
+/* --- Generic panel shells --- */
+#panel-search, #panel-texteditor, #panel-objects {
+    background-color: #2b2b2b;
+    border: 1px solid #3a3a3a;
+    border-radius: 12px;
+    padding: 15px;
+    overflow-y: auto;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+
+/* Generic panel headings */
+#panel-outliner h3,
+#panel-outliner h4,
+#panel-search h3,
+#panel-texteditor h3,
+#panel-objects h3 {
+    margin-top: 0;
+    color: #f0f0f0;
+    border-bottom: 1px solid #444;
+    padding-bottom: 5px;
+}
+
+/* --- Outliner specific styles --- */
+
+/* Entity blocks */
+#panel-outliner .entity {
+    background-color: #3a3a3a;
+    margin: 5px 0;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#panel-outliner .entity:hover {
+    background-color: #505050;
+}
+
+/* Entity types */
+#panel-outliner .entity.act {
+    font-weight: bold;
+    color: #ffcc00;
+}
+
+#panel-outliner .entity.scene {
+    color: #88ccff;
+}
+
+#panel-outliner .entity.char {
+    color: #cc88ff;
+}
+
+/* Flipper icon */
+#panel-outliner .flipper {
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 6px;
+    color: #aaa;
+}
+
+#panel-outliner .flipper:hover {
+    color: #fff;
+}
+
+/* Delete button */
+#panel-outliner .delete-btn {
+    float: right;
+    color: #ff4444;
+    cursor: pointer;
+    font-weight: bold;
+    padding-left: 8px;
+}
+
+#panel-outliner .delete-btn:hover {
+    color: #ff8888;
+}
+
+/* Entity description */
+#panel-outliner .entity-desc {
+    background-color: #222;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin: 5px 0 10px 20px;
+    font-size: 13px;
+    color: #ccc;
+}
+
+/* Small add scene button */
+#panel-outliner button.small-btn {
+    background-color: #333;
+    color: #ccc;
+    border: 1px solid #555;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+#panel-outliner button.small-btn:hover {
+    background-color: #555;
+}

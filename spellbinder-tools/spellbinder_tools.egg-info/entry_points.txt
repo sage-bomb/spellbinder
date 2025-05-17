@@ -1,0 +1,3 @@
+[console_scripts]
+bookshaper = spellbinder_tools.bookshaper:main
+compile = spellbinder_tools.compile:main
